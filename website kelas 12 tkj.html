@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XII TKJ 2</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root{
+  --primary:#2c3e50;
+  --accent:#3498db;
+  --bg:#f4f7f6;
+}
+
+body{
+  margin:0;
+  font-family:Segoe UI;
+  background:var(--bg);
+}
+
+/* HEADER */
+header{
+  background:var(--primary);
+  color:white;
+  padding:10px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo-area{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo-img{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.class-name{
+  font-weight:bold;
+}
+
+/* MENU */
+.menu-btn{
+  font-size:20px;
+  cursor:pointer;
+}
+
+.menu-dropdown{
+  position:absolute;
+  right:20px;
+  top:60px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  display:none;
+  flex-direction:column;
+  z-index:100;
+}
+
+.menu-dropdown div{
+  padding:10px 20px;
+  cursor:pointer;
+}
+
+.menu-dropdown div:hover{
+  background:#eee;
+}
+
+/* CONTAINER */
+.container{
+  max-width:1100px;
+  margin:30px auto;
+  padding:0 20px;
+}
+
+.row{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+/* CARD */
+.student-card{
+  background:white;
+  border-radius:15px;
+  width:180px;
+  padding:15px;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.student-photo{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  border:3px solid var(--accent);
+  object-fit:cover;
+  cursor:pointer;
+}
+
+.student-name{
+  font-weight:bold;
+}
+
+.student-number{
+  font-size:0.9rem;
+  color:#777;
+  margin-bottom:10px;
+}
+
+/* SOSMED */
+.social-links{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+
+.btn-wa,.btn-ig{
+  flex:1;
+  padding:6px;
+  border-radius:20px;
+  font-size:0.8rem;
+  text-decoration:none;
+  color:white;
+  text-align:center;
+}
+
+.btn-wa{background:#25D366;}
+.btn-ig{background:#E1306C;}
+
+/* LIGHTBOX HOME */
+.lightbox-home{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.lightbox-home img{
+  max-width:90%;
+  max-height:80%;
+  border-radius:10px;
+}
+
+.close-lightbox-home{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:35px;
+  color:white;
+  cursor:pointer;
+}
+
+/* POST */
+.post-box{
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  position:relative;
+}
+
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:15px;
+  cursor:pointer;
+  font-size:20px;
+}
+
+/* MEMORY */
+#memoryPage{
+  display:none;
+  padding:20px;
+}
+
+.memory-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+#memoryGallery{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
+  margin-top:20px;
+}
+
+.memory-card{
+  background:white;
+  border-radius:10px;
+  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.memory-img{
+  width:100%;
+  height:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+}
+
+/* LIGHTBOX MEMORY */
+.lightbox-memory{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+  flex-direction:column;
+}
+
+.lightbox-memory img{
+  max-width:90%;
+  max-height:80%;
+  border-radius:10px;
+}
+
+.lightbox-buttons{
+  margin-top:10px;
+  display:flex;
+  gap:10px;
+}
+
+.lightbox-buttons button{
+  padding:8px 12px;
+  font-size:14px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.download-btn-lightbox{
+  background:#3498db;
+  color:white;
+}
+
+.delete-btn-lightbox{
+  background:#e74c3c;
+  color:white;
+}
+
+/* SECTION TITLE */
+.section-title{
+  text-align:center;
+  margin-top:40px;
+  margin-bottom:10px;
+  font-size:1.5rem;
+  color:var(--primary);
+}
+
+/* RESPONSIVE */
+@media(max-width:1200px){#memoryGallery{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){#memoryGallery{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){#memoryGallery{grid-template-columns:repeat(1,1fr);}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo-area">
+  <img src="images/1.jpeg" class="logo-img">
+  <div class="class-name">XII TKJ 2</div>
+</div>
+<div class="menu-btn" onclick="toggleMenu()">
+  <i class="fas fa-ellipsis-v"></i>
+</div>
+</header>
+
+<!-- MENU -->
+<div id="menuDropdown" class="menu-dropdown">
+  <div onclick="goHome()">Home</div>
+  <div onclick="openPost()">Post</div>
+  <div onclick="openMemory()">Memory</div>
+</div>
+
+<!-- HOME -->
+<div class="container" id="homePage">
+
+<h2 class="section-title">Wali Kelas</h2>
+<div class="row">
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Mery Sartika</div>
+    <div class="student-number">Wali Kelas</div>
+    <div class="social-links">
+      <a href="https://wa.me/6281361327531" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      
+    </div>
+  </div>
+</div>
+
+<h2 class="section-title">Perangkat Kelas</h2>
+<div class="row">
+  <div class="student-card">
+    <img src="images/benson.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Benson Parlindungan</div>
+    <div class="student-number">Ketua Kelas</div>
+    <div class="social-links">
+      <a href="https://wa.me/6283175446933" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/bensonpakpahann?=N3Nub25iNHk3ZHYy" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Elin Arini</div>
+    <div class="student-number">Sekretaris</div>
+    <div class="social-links">
+      <a href="https://wa.me/6285373028247" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/elinarini3/?utm_source=ig_web_button_share_sheet/" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Viora Niade</div>
+    <div class="student-number">Bendahara</div>
+    <div class="social-links">
+      <a href="https://wa.me/6285261495817" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+       <a href="https://www.instagram.com/viora_np428?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</div>
+
+<h2 class="section-title">Anggota Kelas</h2>
+<div class="row">
+  <div class="student-card">
+    <img src="images/rahman.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Abdurrahman Syafi'i</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6281265330930" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+     <a href="https://instagram.com/mamannnnn99/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+   <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Agustian Saputra</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282273234766" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+       <a href="https://www.instagram.com/" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+      
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/anggi.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Anggi harmawan</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6285178702816" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/anggihrmawan/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/ari1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Ari Bungsu</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282129595952" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/kunong_kaiba?igsh=NWxoMzI0ZWF0amN5" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/benson.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Benson Parlindungan</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6283175446933" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/bensonparlindungan?igsh=NWxoMzI0ZWF0amN5" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Bunga Citra Lestari</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6285601087437" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/bungarambe1202?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Dapot Parluhutan</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6283862088483" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/cs_dapot/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Dimas Pangapuli</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6285834237329" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/dimzzz.batak/?utm_source=ig_web_button_share_sheet#" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/dina.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Dina Puspita</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282164828511" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/dinapuspita/?utm_source=ig_web_button_share_sheet#" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Evan Indrayudi</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282276246037" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/epan_sanzz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Elin Arini</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/628112345678" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/elin_arini/?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/fauzan.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Fauzan Azmi</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6283163292377" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/fauzan_azmi/?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Gamaliel</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6285361639714" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/____gamelgltm/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/hardiman.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Hardiman</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/628112345678" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Hesti Trivena</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6289654076118" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/hestii_pulungan?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Indah Dirgantara</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/628112345678" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/dir__gan06?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Kevin</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282179001394" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/kevin_ritonga_gg/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/kristofer.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Kristofer Halomoan</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/628112345678" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/kristoferhalomoan/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/marvel.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Marvel Arifka</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6283829231941" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/marvelbatubara/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Nike Anastasya</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6281393199370" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/tasya3_5/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Nurhitlah</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6285261472006" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/ija__srg/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/perdi.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Perdi Saputra</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/628112345678" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/saputra_aq?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Ramdani</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282164828511" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/ramdanisr.19/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Riski Auliani</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6281360487809" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/stiven.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Stiven Melki Sedek</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/628112345678" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/stivennnnnnnnnnnnnnnnnnnnnnn/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Viora Niade</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6285261495817" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/viora_np428?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/1.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Yohana</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282285636538" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/hana_25zihh/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <div class="student-card">
+    <img src="images/yusril.jpeg" class="student-photo" onclick="openHomeLightbox(this)">
+    <div class="student-name">Yusril Apandi</div>
+    <div class="student-number"></div>
+    <div class="social-links">
+      <a href="https://wa.me/6282179003700" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/yusrilapandipohan/?utm_source=ig_web_button_share_sheet" target="_blank" class="btn-ig"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <footer>
+        &copy; 2026 Website Kelas XII TKJ 2
+    </footer>
+
+
+  
+
+  
+</div>
+
+</div>
+
+<!-- POST -->
+<div id="postModal" class="lightbox-memory">
+  <div class="post-box">
+    <span class="close-btn" onclick="closePost()">✖</span>
+    <h3>Post Kenangan</h3>
+    <input type="file" id="imageUpload" multiple>
+    <br><br>
+    <button onclick="uploadPost()">Upload</button>
+  </div>
+</div>
+
+<!-- MEMORY -->
+<div id="memoryPage">
+  <div class="memory-header">
+    <h2>Memory XII TKJ 2</h2>
+    <button onclick="goHome()">Home</button>
+  </div>
+  <div id="memoryGallery"></div>
+</div>
+
+<!-- LIGHTBOX HOME -->
+<div id="homeLightbox" class="lightbox-home">
+  <span class="close-lightbox-home" onclick="closeHomeLightbox()">✖</span>
+  <img id="homeLightboxImg">
+</div>
+
+<!-- LIGHTBOX MEMORY -->
+<div id="memoryLightbox" class="lightbox-memory">
+  <span class="close-lightbox" onclick="closeMemoryLightbox()">✖</span>
+  <img id="memoryLightboxImg">
+  <div class="lightbox-buttons">
+    <button class="download-btn-lightbox" onclick="downloadMemory()">Download</button>
+    <button class="delete-btn-lightbox" onclick="deleteMemory()">Hapus</button>
+  </div>
+</div>
+
+<script>
+let currentMemoryCard=null;
+
+// Menu toggle
+function toggleMenu(){
+  let menu=document.getElementById("menuDropdown");
+  menu.style.display=menu.style.display==="flex"?"none":"flex";
+}
+
+// Home / Memory navigation
+function goHome(){
+  document.getElementById("homePage").style.display="block";
+  document.getElementById("memoryPage").style.display="none";
+}
+function openMemory(){
+  document.getElementById("homePage").style.display="none";
+  document.getElementById("memoryPage").style.display="block";
+}
+
+// POST
+function openPost(){
+  document.getElementById("postModal").style.display="flex";
+}
+function closePost(){
+  document.getElementById("postModal").style.display="none";
+}
+
+// LIGHTBOX HOME (student-card only)
+function openHomeLightbox(img){
+  document.getElementById("homeLightbox").style.display="flex";
+  document.getElementById("homeLightboxImg").src=img.src;
+}
+function closeHomeLightbox(){
+  document.getElementById("homeLightbox").style.display="none";
+}
+
+// LIGHTBOX MEMORY (Memory only)
+function openMemoryLightbox(img){
+  document.getElementById("memoryLightbox").style.display="flex";
+  document.getElementById("memoryLightboxImg").src=img.src;
+  currentMemoryCard=img.parentElement;
+}
+function closeMemoryLightbox(){
+  document.getElementById("memoryLightbox").style.display="none";
+}
+
+// MEMORY FUNCTIONS
+function downloadMemory(){
+  if(!currentMemoryCard) return;
+  let img=currentMemoryCard.querySelector(".memory-img");
+  let a=document.createElement("a");
+  a.href=img.src;
+  a.download="memory.jpg";
+  a.click();
+}
+
+function deleteMemory(){
+  if(currentMemoryCard){
+    currentMemoryCard.remove();
+    closeMemoryLightbox();
+  }
+}
+
+// UPLOAD MEMORY
+function uploadPost(){
+  let files=document.getElementById("imageUpload").files;
+  if(!files.length) return;
+
+  for(let i=0;i<files.length;i++){
+    let reader=new FileReader();
+    reader.onload=function(e){
+      let card=document.createElement("div");
+      card.className="memory-card";
+
+      let img=document.createElement("img");
+      img.src=e.target.result;
+      img.className="memory-img";
+      img.onclick=function(){openMemoryLightbox(this)};
+
+      card.appendChild(img);
+      document.getElementById("memoryGallery").appendChild(card);
+    }
+    reader.readAsDataURL(files[i]);
+  }
+
+  closePost();
+}
+</script>
+
+</body>
+</html>
